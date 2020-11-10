@@ -13,8 +13,10 @@ class Distribution extends Component{
     
     return(
       <div> 
-      <this.props.name/>
-      <Table _media={this.props.media} _varianza={this.props.varianza}/>
+      <Table 
+      _media={this.props.media} 
+      _varianza={this.props.varianza} 
+      _desviacion={this.props.desviacion}/>
       </div>
     )
   }
