@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Bar} from 'react-chartjs-2';
 
-const LineGraph = ({_labels, _data}) =>{
+const BarGraph = ({_labels, _data}) =>{
     const [chartData, setChartData] = useState({});
 
     const chart = () =>{
@@ -32,7 +32,7 @@ const LineGraph = ({_labels, _data}) =>{
                     display: false
                 },
                responsive: true,
-               title: {text: 'FUNCIÓN DE DISTRIBUCIÓN', display: true},
+               title: {text: 'TITLE', display: true},
                scales:{
                    yAxes:[
                        {
@@ -50,4 +50,4 @@ const LineGraph = ({_labels, _data}) =>{
     )
 }
 
-export default LineGraph;
+export default BarGraph;

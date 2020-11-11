@@ -1,7 +1,7 @@
 import Distribution from './Distribution';
 import React, {Component} from 'react'; 
 import NumberField from '../Components/NumberField';
-import LineGraph from '../Components/LineGraph'
+import BarGraph from '../Components/BarGraph'
 
 class Binomial extends Component {
     constructor (props) {
@@ -16,7 +16,6 @@ class Binomial extends Component {
         media: 0,
         varianza: 0,
         desviacion: 0,
-        nPoints: 50,
         labels: [],
         data: []
       }
@@ -24,13 +23,13 @@ class Binomial extends Component {
 
     componentDidUpdate(_prevProps, prevState) {
       if (prevState.p !== this.state.p || prevState.n !== this.state.n) {
-        const fuctionData = this.calcularFuncion();
+        
         this.setState({
           media: this.calcularMedia(),
           varianza: this.calcularVarianza(),
           desviacion: this.calcularDesviacion(),
-          data: fuctionData[0],
-          labels: fuctionData[1]
+          data: [1,2],
+          labels: ['a', 'b']
         });
       }
     }
@@ -54,34 +53,27 @@ class Binomial extends Component {
     
     calcularFuncion(){
       let _data = [];
-      let _labels = [];
 
-      for (var i = 0; i < this.state.nPoints; i++) {
-        _labels.push(i);
-
+      for (var i = 0; i < this.state.n; i++) {
         let prob = this.calcularProbabilidad(i);
-        _data.push(prob);
+        _data.push(Number(prob));
       } 
 
-      return [_data, _labels];
+      return _data;
     }
-    
-
 
     calcularProbabilidad(x){
       let result = this.choose(this.state.n, x) * this.state.p**x * (1-this.state.p)**(this.state.n-x);
+      return result;
     }
 
-    factorial(n) {
-      if (n === 1) {
-        return 1;
-      }
-      
-      return n * this.factorial(n - 1);
+    factorial = (n) => {
+      return n >= 1 ? n * this.factorial(n - 1) : 1
     }
 
     choose(a,b){
       let result = (this.factorial(a))/(this.factorial(b) * this.factorial(a-b));
+      return result;
     }
 
     render(){
@@ -94,7 +86,7 @@ class Binomial extends Component {
             varianza={this.state.varianza}
             desviacion={this.state.desviacion}
           />
-          <LineGraph _labels={this.state.labels} _data= {this.state.data}/>
+          <BarGraph _labels={['A', 'B']} _data= {[1,2]}/>
           
         </div>
       )
