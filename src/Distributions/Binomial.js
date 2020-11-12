@@ -1,17 +1,17 @@
 import Distribution from './Distribution';
 import React, {Component} from 'react'; 
 import NumberField from '../Components/NumberField';
-import BarGraph from '../Components/BarGraph'
-import BarGraph3 from '../Components/BarGraph3'
+import BarGraph from '../Components/BarGraph';
+import {choose, factorial} from '../Libraries/Math';
 
 const gr= {
-  labels: ['January', 'February', 'March', 'April', 'May'],
+  labels: [],
   datasets: [
     {
       backgroundColor: 'rgba(75,192,192, 0.6)',
       highlightStroke: "rgba(220,220,220,1)",
       borderWidth: 0,
-      data: [65, 59, 80, 81, 56]
+      data: []
     }
   ]
 }
@@ -38,9 +38,8 @@ class Binomial extends Component {
           varianza: this.calcularVarianza(),
           desviacion: this.calcularDesviacion(),
         });
-        gr.labels = Array.from({length: this.state.n}, (_, i) => i + 1);
+        gr.labels = Array.from(Array(this.state.n + 1).keys())
         let _data = this.calcularFuncion();
-        console.log(_data);
 
         gr.datasets = [
           {
@@ -73,7 +72,7 @@ class Binomial extends Component {
     calcularFuncion(){
       let _data = [];
 
-      for (var i = 0; i < this.state.n; i++) {
+      for (var i = 0; i <= this.state.n; i++) {
         let prob = this.calcularProbabilidad(i);
         _data.push(Number(prob));
       } 
@@ -82,30 +81,21 @@ class Binomial extends Component {
     }
 
     calcularProbabilidad(x){
-      let result = this.choose(this.state.n, x) * this.state.p**x * (1-this.state.p)**(this.state.n-x);
-      return result;
-    }
-
-    factorial = (n) => {
-      return n >= 1 ? n * this.factorial(n - 1) : 1
-    }
-
-    choose(a,b){
-      let result = (this.factorial(a))/(this.factorial(b) * this.factorial(a-b));
+      let result = choose(this.state.n, x) * this.state.p**x * (1-this.state.p)**(this.state.n-x);
       return result;
     }
 
     render(){
       return(
         <div>
-          <NumberField label={"n"} min={0} max={9999999} handleChange={this.changeN}/>
-          <NumberField label={"p"} min={0} max={1} handleChange={this.changeP}/>
+          <NumberField label={"n"} min={0} max={9999999} helpText={"Población"} step={"1"} handleChange={this.changeN}/>
+          <NumberField label={"p"} min={0} max={1} step={"0.1"} helpText={"Probabilidad"} handleChange={this.changeP}/>
           <Distribution name={this.state.name} 
             media={this.state.media} 
             varianza={this.state.varianza}
             desviacion={this.state.desviacion}
           />
-          <BarGraph3 data={gr}/>
+          <BarGraph data={gr}/>
           
         </div>
       )

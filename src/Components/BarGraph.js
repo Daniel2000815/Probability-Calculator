@@ -1,54 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import {Bar} from 'react-chartjs-2';
+import React from 'react';
+import { Bar } from 'react-chartjs-2';
 
-const BarGraph = ({_labels, _data}) =>{
-    const [chartData, setChartData] = useState({});
-
-    const chart = () =>{
-        setChartData({
-            labels: _labels,
-            datasets: [
-                {
-                    label: 'level jaja',
-                    data: _data,
-                    backgroundColor: 'rgba(75,192,192, 0.6)',
-                    highlightStroke: "rgba(220,220,220,1)",
-                    borderWidth: 0
-                }
-            ]
-        })
-    }
-
-    useEffect(()=> {
-        chart()
-    }, [])
-
-
-    return(
-        <div className="App">
-        <div style={{height: "500px", width: "500px"}}>
-            <Bar data={chartData} 
-            options={{
-                legend:{
-                    display: false
-                },
-               responsive: true,
-               title: {text: 'TITLE', display: true},
-               scales:{
-                   yAxes:[
-                       {
-                           ticks:{
-                               autoSkip: true,
-                               maxTicksLimit: 10,
-                               beginAtZero: true
-                           }
+export default class BarGraph extends React.Component {
+    render() {
+        return (
+            <div style={{height: "500px", width: "500px"}}>
+                <Bar
+                    data={this.props.data}
+                    options={{
+                        legend:{
+                            display: false
+                        },
+                       responsive: true,
+                       title: {text: 'FUNCIÓN DISTRIBUCIÓN', display: true},
+                       scales:{
+                           yAxes:[
+                               {
+                                   ticks:{
+                                        autoSkip: true,
+                                        beginAtZero: true,
+                                        min: 0,
+                                   }
+                               }
+                           ]
                        }
-                   ]
-               }
-            }}/>
-        </div>
-        </div>
-    )
+                    }}
+                />
+            </div>
+        );
+    }
 }
-
-export default BarGraph;

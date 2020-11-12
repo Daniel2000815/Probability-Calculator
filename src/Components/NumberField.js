@@ -12,6 +12,8 @@ class NumberField extends Component{
             id="margin-none"
             label={this.props.label}
             variant="outlined"
+            helperText={this.props.helpText}
+            defaultValue={0}
             type="number"
             InputLabelProps={{
                 shrink: true,
@@ -19,6 +21,7 @@ class NumberField extends Component{
             onInput={(e)=>{ 
                 e.target.value = this.clamp(e.target.value, this.props.min, this.props.max)
             }}
+            inputProps={{ step: this.props.step }}
             style={{ width: '200px', margin: '10px', input: { margin: 10 } }}
             onChange={this.props.handleChange}
         />
