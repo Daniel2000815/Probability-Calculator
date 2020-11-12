@@ -2,7 +2,19 @@ import Distribution from './Distribution';
 import React, {Component} from 'react'; 
 import NumberField from '../Components/NumberField';
 import BarGraph from '../Components/BarGraph'
+import BarGraph3 from '../Components/BarGraph3'
 
+const gr= {
+  labels: ['January', 'February', 'March', 'April', 'May'],
+  datasets: [
+    {
+      backgroundColor: 'rgba(75,192,192, 0.6)',
+      highlightStroke: "rgba(220,220,220,1)",
+      borderWidth: 0,
+      data: [65, 59, 80, 81, 56]
+    }
+  ]
+}
 class Binomial extends Component {
     constructor (props) {
       super(props);
@@ -16,21 +28,28 @@ class Binomial extends Component {
         media: 0,
         varianza: 0,
         desviacion: 0,
-        labels: [],
-        data: []
       }
     }
 
     componentDidUpdate(_prevProps, prevState) {
       if (prevState.p !== this.state.p || prevState.n !== this.state.n) {
-        
         this.setState({
           media: this.calcularMedia(),
           varianza: this.calcularVarianza(),
           desviacion: this.calcularDesviacion(),
-          data: [1,2],
-          labels: ['a', 'b']
         });
+        gr.labels = Array.from({length: this.state.n}, (_, i) => i + 1);
+        let _data = this.calcularFuncion();
+        console.log(_data);
+
+        gr.datasets = [
+          {
+            backgroundColor: 'rgba(75,192,192, 0.6)',
+            highlightStroke: "rgba(220,220,220,1)",
+            borderWidth: 0,
+            data: _data
+          }
+        ]
       }
     }
 
@@ -86,7 +105,7 @@ class Binomial extends Component {
             varianza={this.state.varianza}
             desviacion={this.state.desviacion}
           />
-          <BarGraph _labels={['A', 'B']} _data= {[1,2]}/>
+          <BarGraph3 data={gr}/>
           
         </div>
       )

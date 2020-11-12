@@ -27,7 +27,8 @@ const BarGraph = ({_labels, _data}) =>{
     return(
         <div className="App">
         <div style={{height: "500px", width: "500px"}}>
-            <Bar data={chartData} options={{
+            <Bar data={chartData} 
+            options={{
                 legend:{
                     display: false
                 },
