@@ -2,7 +2,7 @@ import Distribution from './Distribution';
 import React, {Component} from 'react'; 
 import NumberField from '../Components/NumberField';
 import BarGraph from '../Components/BarGraph';
-import {choose, factorial} from '../Libraries/Math';
+import {choose, factorial} from '../Libraries/MyMath';
 
 const gr= {
   labels: [],
@@ -39,8 +39,10 @@ class BinomialNegativa2 extends Component {
           varianza: this.calcularVarianza(),
           desviacion: this.calcularDesviacion(),
         });
-        gr.labels = Array.from(Array(this.state.r+1).keys())
+
+        gr.labels = Array(this.state.r*3 - this.state.r).fill().map((_, idx) => this.state.r + idx)
         let _data = this.calcularFuncion();
+      
 
         gr.datasets = [
           {
@@ -72,7 +74,7 @@ class BinomialNegativa2 extends Component {
     calcularFuncion(){
       let _data = [];
 
-      for (var i = 0; i <= this.state.r; i++) {
+      for (var i = this.state.r ; i <= this.state.r*3; i++) {
         let prob = this.calcularProbabilidad(i);
         _data.push(Number(prob));
       } 
@@ -81,15 +83,15 @@ class BinomialNegativa2 extends Component {
     }
 
     calcularProbabilidad(x){
-      let result = choose(x-1, x-this.state.r) * this.state.p**(this.state.r) * (1-this.state.p)**(x-this.state.r);
+      let result = choose(x -1, x-this.state.r) * this.state.p**(this.state.r) * (1-this.state.p)**(x-+this.state.r);
       return result; 
     }
 
     render(){
       return(
         <div>
-          <NumberField label={"p"} min={0} max={1} step={"0.1"} helpText={"Probabilidad"} handleChange={this.changeP}/>
-          <NumberField label={"r"} min={0} max={999999} step={"1"} helpText={"Nº éxito"} handleChange={this.changeR}/>
+          <NumberField label={"p"} min={0} max={1} step={"0.1"} defaultValue={0} helpText={"Probabilidad"} handleChange={this.changeP}/>
+          <NumberField label={"r"} min={1} max={999999} step={"1"} defaultValue={0} helpText={"Nº éxito"} handleChange={this.changeR}/>
           <Distribution name={this.state.name} 
             media={this.state.media} 
             varianza={this.state.varianza}

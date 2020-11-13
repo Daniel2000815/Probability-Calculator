@@ -2,7 +2,7 @@ import Distribution from './Distribution';
 import React, {Component} from 'react'; 
 import NumberField from '../Components/NumberField';
 import BarGraph from '../Components/BarGraph';
-import {choose, factorial} from '../Libraries/Math';
+import {choose, factorial} from '../Libraries/MyMath';
 
 const gr= {
   labels: [],
@@ -88,8 +88,8 @@ class Binomial extends Component {
     render(){
       return(
         <div>
-          <NumberField label={"n"} min={0} max={9999999} helpText={"Población"} step={"1"} handleChange={this.changeN}/>
-          <NumberField label={"p"} min={0} max={1} step={"0.1"} helpText={"Probabilidad"} handleChange={this.changeP}/>
+          <NumberField label={"n"} min={0} max={9999999} defaultValue={0} helpText={"Población"} step={"1"} handleChange={this.changeN}/>
+          <NumberField label={"p"} min={0} max={1} step={"0.1"} defaultValue={0} helpText={"Probabilidad"} handleChange={this.changeP}/>
           <Distribution name={this.state.name} 
             media={this.state.media} 
             varianza={this.state.varianza}

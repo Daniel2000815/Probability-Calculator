@@ -13,7 +13,7 @@ class NumberField extends Component{
             label={this.props.label}
             variant="outlined"
             helperText={this.props.helpText}
-            defaultValue={0}
+            defaultValue={this.props.defaultValue}
             type="number"
             InputLabelProps={{
                 shrink: true,

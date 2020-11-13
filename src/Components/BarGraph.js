@@ -4,7 +4,7 @@ import { Bar } from 'react-chartjs-2';
 export default class BarGraph extends React.Component {
     render() {
         return (
-            <div style={{height: "500px", width: "500px"}}>
+            <div style={{height: "250px", width: "500px"}}>
                 <Bar
                     data={this.props.data}
                     options={{
