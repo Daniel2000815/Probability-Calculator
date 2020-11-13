@@ -23,6 +23,7 @@ class Geometrica extends Component {
 
       this.state={
         name: "Geométrica",
+        descripcion: "Nº de fracasos ANTES del primer éxito.",
         p: 0,
         media: 0,
         varianza: 0,
@@ -87,8 +88,9 @@ class Geometrica extends Component {
     render(){
       return(
         <div>
-          <NumberField label={"p"} min={0} max={1} step={"0.1"} defaultValue={0} helpText={"Probabilidad"} handleChange={this.changeP}/>
+          <NumberField label={"p"} min={0} max={1} step={"0.1"} defaultValue={0} helpText={"Probabilidad éxito"} handleChange={this.changeP}/>
           <Distribution name={this.state.name} 
+            descripcion={this.state.descripcion}
             media={this.state.media} 
             varianza={this.state.varianza}
             desviacion={this.state.desviacion}

@@ -24,6 +24,7 @@ class BinomialNegativa2 extends Component {
 
       this.state={
         name: "Binomial Negativa (v2)",
+        descripcion: "Número de fracasos HASTA el k-ésimo éxito.",
         p: 0,
         r: 0,
         media: 0,
@@ -90,9 +91,10 @@ class BinomialNegativa2 extends Component {
     render(){
       return(
         <div>
-          <NumberField label={"p"} min={0} max={1} step={"0.1"} defaultValue={0} helpText={"Probabilidad"} handleChange={this.changeP}/>
-          <NumberField label={"r"} min={1} max={999999} step={"1"} defaultValue={0} helpText={"Nº éxito"} handleChange={this.changeR}/>
+          <NumberField label={"p"} min={0} max={1} step={"0.1"} defaultValue={0} helpText={"Probabilidad éxito"} handleChange={this.changeP}/>
+          <NumberField label={"k"} min={1} max={999999} step={"1"} defaultValue={0} helpText={"Nº éxito"} handleChange={this.changeR}/>
           <Distribution name={this.state.name} 
+            descripcion={this.state.descripcion}
             media={this.state.media} 
             varianza={this.state.varianza}
             desviacion={this.state.desviacion}

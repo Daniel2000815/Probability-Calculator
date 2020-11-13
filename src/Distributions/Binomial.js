@@ -23,6 +23,7 @@ class Binomial extends Component {
 
       this.state={
         name: "Binomial",
+        descripcion: "Número de éxitos en n pruebas.",
         p: 0,
         n: 0,
         media: 0,
@@ -88,9 +89,10 @@ class Binomial extends Component {
     render(){
       return(
         <div>
-          <NumberField label={"n"} min={0} max={9999999} defaultValue={0} helpText={"Población"} step={"1"} handleChange={this.changeN}/>
-          <NumberField label={"p"} min={0} max={1} step={"0.1"} defaultValue={0} helpText={"Probabilidad"} handleChange={this.changeP}/>
+          <NumberField label={"n"} min={0} max={9999999} defaultValue={0} helpText={"Pruebas"} step={"1"} handleChange={this.changeN}/>
+          <NumberField label={"p"} min={0} max={1} step={"0.1"} defaultValue={0} helpText={"Probabilidad éxito"} handleChange={this.changeP}/>
           <Distribution name={this.state.name} 
+            descripcion={this.state.descripcion}
             media={this.state.media} 
             varianza={this.state.varianza}
             desviacion={this.state.desviacion}

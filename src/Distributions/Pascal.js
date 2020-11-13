@@ -23,6 +23,7 @@ class Pascal extends Component {
 
       this.state={
         name: "Pascal",
+        descripcion: "Nº de fracasos HASTA el primer éxito.",
         p: 0,
         media: 0,
         varianza: 0,
@@ -87,15 +88,17 @@ class Pascal extends Component {
     render(){
       return(
         <div>
-          <NumberField label={"p"} min={0} max={1} step={"0.1"} defaultValue={0} helpText={"Probabilidad"} handleChange={this.changeP}/>
+          <NumberField label={"p"} min={0} max={1} step={"0.1"} defaultValue={0} helpText={"Probabilidad éxito"} handleChange={this.changeP}/>
           <Distribution name={this.state.name} 
+            descripcion={this.state.descripcion}
             media={this.state.media} 
             varianza={this.state.varianza}
             desviacion={this.state.desviacion}
           />
-          <span> <BarGraph data={gr}/></span>
-          <NumberField label={"Puntos a calcular"} min={0} max={999999} step={"1"} defaultValue={1} handleChange={this.changePuntos}/>         
-          
+          <>
+          <BarGraph data={gr}/>
+          <span><NumberField label={"Puntos a calcular"} min={0} max={999999} step={"1"} defaultValue={1} handleChange={this.changePuntos}/></span>  
+          </>
         </div>
       )
     }

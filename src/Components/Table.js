@@ -1,12 +1,13 @@
 import React from 'react'
 import MaterialTable from 'material-table'
 
-export const Table=({_media, _varianza, _desviacion})=>{
+export const Table=({_media, _varianza, _desviacion, _descripcion})=>{
     const data=[
-        {media: _media, varianza: _varianza, desviacion: _desviacion}
+        {media: _media, varianza: _varianza, desviacion: _desviacion, descripcion: _descripcion}
     ]
 
     const columns=[
+        {title: "Descripción", field:'descripcion'},
         {title: "Media", field:'media'},
         {title: "Varianza", field:'varianza'},
         {title: "Desviación Típica", field:'desviacion'}
@@ -17,7 +18,7 @@ export const Table=({_media, _varianza, _desviacion})=>{
         <MaterialTable title="Propiedades"
             data={data}
             columns={columns}
-            style={{ width: '800px', margin: '10px', input: { margin: 10 } }}
+            style={{  margin: '10px', input: { margin: 10 } }}
             options={{
                 search: false,
                 paging: false

@@ -24,6 +24,7 @@ class Hipergeometrica extends Component {
 
       this.state={
         name: "Hipergeométrica",
+        descripcion: "Nº de éxitos tras n extracciones sin reemplazamiento de una población de tamaño N, con k individuos de una clase (éxito) y N-k de otra (fracaso).",
         N: 0,
         n: 0,
         k: 0,
@@ -97,6 +98,7 @@ class Hipergeometrica extends Component {
           <NumberField label={"n"} min={0} max={100000} step={"1"} defaultValue={0} helpText={"Extracción"} handleChange={this.changen}/>
           <NumberField label={"k"} min={0} max={100000} step={"1"} defaultValue={0} helpText={"Población marcada"} handleChange={this.changek}/>          
           <Distribution name={this.state.name} 
+            descripcion= {this.state.descripcion}
             media={this.state.media} 
             varianza={this.state.varianza}
             desviacion={this.state.desviacion}
