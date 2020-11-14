@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import NumberField from '../Components/NumberField';
 import BarGraph from '../Components/BarGraph';
 import {choose, factorial} from '../Libraries/MyMath';
+import NumberSlider from '../Components/NumberSlider';
 
 const gr= {
   labels: [],
@@ -39,6 +40,7 @@ class Pascal extends Component {
           varianza: this.calcularVarianza(),
           desviacion: this.calcularDesviacion(),
         });
+        console.log(this.state.nPoints);
         gr.labels = Array.from(Array(this.state.nPoints).keys())
         let _data = this.calcularFuncion();
 
@@ -97,7 +99,8 @@ class Pascal extends Component {
           />
           <>
           <BarGraph data={gr}/>
-          <span><NumberField label={"Puntos a calcular"} min={0} max={999999} step={"1"} defaultValue={1} handleChange={this.changePuntos}/></span>  
+          <NumberSlider min={0} max={40} default={1} step={1} handleChange={this.changePuntos}/>
+          
           </>
         </div>
       )
@@ -107,8 +110,8 @@ class Pascal extends Component {
       await this.setState({ p: Number(event.target.value) });
     };
 
-    changePuntos = async function(event) {
-      await this.setState({ nPoints: Number(event.target.value) });
+    changePuntos = async function(event, value) {
+      await this.setState({ nPoints: Number(value) });
     };
 
 }

@@ -2,6 +2,8 @@ import Distribution from './Distribution';
 import React, {Component} from 'react'; 
 import NumberField from '../Components/NumberField';
 import BarGraph from '../Components/BarGraph';
+import NumberSlider from '../Components/NumberSlider';
+
 import {choose, factorial} from '../Libraries/MyMath';
 
 const gr= {
@@ -96,7 +98,7 @@ class Geometrica extends Component {
             desviacion={this.state.desviacion}
           />
           <span> <BarGraph data={gr}/></span>
-          <NumberField label={"Puntos a calcular"} min={0} max={999999} step={"1"} defaultValue={1} handleChange={this.changePuntos}/>         
+          <NumberSlider min={0} max={40} default={1} step={1} handleChange={this.changePuntos}/>
           
         </div>
       )
@@ -106,8 +108,8 @@ class Geometrica extends Component {
       await this.setState({ p: Number(event.target.value) });
     };
 
-    changePuntos = async function(event) {
-      await this.setState({ nPoints: Number(event.target.value) });
+    changePuntos = async function(event, value) {
+      await this.setState({ nPoints: Number(value) });
     };
 
 }
