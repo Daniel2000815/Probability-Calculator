@@ -1,10 +1,31 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
+import {Select} from '@material-ui/core';
 
 export default class BarGraph extends React.Component {
     render() {
         return (
-            <div style={{float:"left", height: "250px",width: "500px", display: "flex", justifyContent: "space-between"  }}>
+            <div style={{float:"left",  display: "flex", justifyContent: "space-between" }}>
+            <span>
+            <div style={{width: "200px" , padding:"15px"}}>
+            <p>P[X</p>
+            <Select
+                    native
+                    inputProps={{
+                        name: 'age',
+                        id: 'age-native-simple',
+                    }}
+                    >
+                    <option aria-label="None" value="" />
+                    <option value={"="}>=</option>
+                    <option value={"<="}>≤</option>
+                    <option value={">="}>≥</option>
+            </Select>
+            <p>]=</p>
+            </div>
+            </span>
+
+            <span><div style={{ width: "500px" }}>
                 <Bar
                     data={this.props.data}
                     options={{
@@ -26,7 +47,8 @@ export default class BarGraph extends React.Component {
                        }
                     }}
                 />
-            </div>
+            </div></span>
+        </div>
         );
     }
 }

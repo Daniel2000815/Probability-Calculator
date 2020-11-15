@@ -41,7 +41,11 @@ class Hipergeometrica extends Component {
           varianza: this.calcularVarianza(),
           desviacion: this.calcularDesviacion(),
         });
-        gr.labels = Array.from(Array(this.state.n+1).keys())
+
+        let start = this.state.n;
+        let end = this.state.k;
+
+        gr.labels = Array(end - start + 1).fill().map((_, idx) => start + idx);
         let _data = this.calcularFuncion();
 
         gr.datasets = [
@@ -91,12 +95,16 @@ class Hipergeometrica extends Component {
       return result;
     }
 
-    render(){
+    render(){ 
+      let e1 = this.state.N<this.state.n;
+      let e2 = this.state.n<this.state.k;
+      let e4=e1|e2;
+
       return(
         <div>
-          <NumberField label={"N"} min={0} max={100000} step={"1"} defaultValue={0} helpText={"Población original"} handleChange={this.changeN}/>
-          <NumberField label={"n"} min={0} max={100000} step={"1"} defaultValue={0} helpText={"Extracción"} handleChange={this.changen}/>
-          <NumberField label={"k"} min={0} max={100000} step={"1"} defaultValue={0} helpText={"Población marcada"} handleChange={this.changek}/>          
+          <NumberField error={e1} label={"N"} min={0} max={100000} step={"1"} defaultValue={0} helpText={"Población original"} handleChange={this.changeN}/>
+          <NumberField error={e4} label={"n"} min={0} max={100000} step={"1"} defaultValue={0} helpText={"Extracción"} handleChange={this.changen}/>
+          <NumberField error={e2} label={"k"} min={0} max={100000} step={"1"} defaultValue={0} helpText={"Población marcada"} handleChange={this.changek}/>          
           <Distribution name={this.state.name} 
             descripcion= {this.state.descripcion}
             media={this.state.media} 

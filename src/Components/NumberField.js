@@ -24,6 +24,7 @@ class NumberField extends Component{
             inputProps={{ step: this.props.step }}
             style={{ width: '200px', margin: '10px', input: { margin: 10 } }}
             onChange={this.props.handleChange}
+            error={this.props.error}
         />
   
         )
