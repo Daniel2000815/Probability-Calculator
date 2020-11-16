@@ -6,24 +6,6 @@ export default class BarGraph extends React.Component {
     render() {
         return (
             <div style={{float:"left",  display: "flex", justifyContent: "space-between" }}>
-            <span>
-            <div style={{width: "200px" , padding:"15px"}}>
-            <p>P[X</p>
-            <Select
-                    native
-                    inputProps={{
-                        name: 'age',
-                        id: 'age-native-simple',
-                    }}
-                    >
-                    <option aria-label="None" value="" />
-                    <option value={"="}>=</option>
-                    <option value={"<="}>≤</option>
-                    <option value={">="}>≥</option>
-            </Select>
-            <p>]=</p>
-            </div>
-            </span>
 
             <span><div style={{ width: "500px" }}>
                 <Bar

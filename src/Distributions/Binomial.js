@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import NumberField from '../Components/NumberField';
 import BarGraph from '../Components/BarGraph';
 import {choose, factorial} from '../Libraries/MyMath';
+import CalcProb from '../Components/CalcProb';
+
 
 const gr= {
   labels: [],
@@ -20,6 +22,7 @@ class Binomial extends Component {
       super(props);
       this.changeN = this.changeN.bind(this);
       this.changeP = this.changeP.bind(this);
+      this.changeRange = this.changeRange.bind(this);
 
       this.state={
         name: "Binomial",
@@ -29,11 +32,13 @@ class Binomial extends Component {
         media: 0,
         varianza: 0,
         desviacion: 0,
+        probRange: [0,0],
+        probabilidad: 0
       }
     }
 
     componentDidUpdate(_prevProps, prevState) {
-      if (prevState.p !== this.state.p || prevState.n !== this.state.n) {
+      if (prevState.p !== this.state.p || prevState.n !== this.state.n || prevState.probRange !== this.state.probRange) {
         this.setState({
           media: this.calcularMedia(),
           varianza: this.calcularVarianza(),
@@ -50,6 +55,17 @@ class Binomial extends Component {
             data: _data
           }
         ]
+
+        let res = 0;
+        console.log("CALCULANDO ENTRE " + this.state.probRange[0] + " Y " + this.state.probRange[1]);
+        for(let i=this.state.probRange[0]; i<=this.state.probRange[1]; i++){
+          console.log(this.calcularProbabilidad(i))
+          res += this.calcularProbabilidad(i);
+        }
+        console.log("RES= " + res );
+        this.setState({
+          probabilidad: res
+        })
       }
     }
 
@@ -98,10 +114,16 @@ class Binomial extends Component {
             desviacion={this.state.desviacion}
           />
           <BarGraph data={gr}/>
+          <CalcProb result={this.state.probabilidad} min={0} max={this.state.n} range={this.state.probRange} handleChange={this.changeRange}/>
+
           
         </div>
       )
     }
+
+    changeRange = async function(event, value) {
+      await this.setState({ probRange: value });
+    };
 
     changeP = async function(event) {
       await this.setState({ p: Number(event.target.value) });

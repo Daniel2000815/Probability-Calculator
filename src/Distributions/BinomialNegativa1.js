@@ -2,7 +2,9 @@ import Distribution from './Distribution';
 import React, {Component} from 'react'; 
 import NumberField from '../Components/NumberField';
 import BarGraph from '../Components/BarGraph';
+import NumberSlider from '../Components/NumberSlider';
 import {choose, factorial} from '../Libraries/MyMath';
+import CalcProb from '../Components/CalcProb';
 
 const gr= {
   labels: [],
@@ -21,27 +23,32 @@ class BinomialNegativa1 extends Component {
       super(props);
       this.changeR = this.changeR.bind(this);
       this.changeP = this.changeP.bind(this);
+      this.changeRange = this.changeRange.bind(this);
+      this.changePuntos = this.changePuntos.bind(this);
 
       this.state={
         name: "Binomial Negativa (v1)",
         descripcion: "Número de fracasos ANTES del k-ésimo éxito.",
         p: 0,
-        r: 0,
+        r: 1,
         media: 0,
         varianza: 0,
+        nPoints: 1,
         desviacion: 0,
+        probRange: [0,0],
+        probabilidad: 0
       }
     }
 
     componentDidUpdate(_prevProps, prevState) {
-      if (prevState.p !== this.state.p || prevState.r !== this.state.r) {
+      if (prevState.p !== this.state.p || prevState.nPoints !== this.state.nPoints || prevState.r !== this.state.r || prevState.probRange !== this.state.probRange) {
         this.setState({
           media: this.calcularMedia(),
           varianza: this.calcularVarianza(),
           desviacion: this.calcularDesviacion(),
         });
 
-        gr.labels = Array(this.state.r*3 - this.state.r - 1).fill().map((_, idx) => this.state.r-1 + idx)
+        gr.labels = Array.from(Array(this.state.nPoints).keys());
         let _data = this.calcularFuncion();
       
 
@@ -53,6 +60,17 @@ class BinomialNegativa1 extends Component {
             data: _data
           }
         ]
+
+        let res = 0;
+        console.log("CALCULANDO ENTRE " + this.state.probRange[0] + " Y " + this.state.probRange[1]);
+        for(let i=this.state.probRange[0]; i<=this.state.probRange[1]; i++){
+          console.log(this.calcularProbabilidad(i))
+          res += this.calcularProbabilidad(i);
+        }
+        console.log("RES= " + res );
+        this.setState({
+          probabilidad: res
+        })
       }
     }
 
@@ -75,7 +93,7 @@ class BinomialNegativa1 extends Component {
     calcularFuncion(){
       let _data = [];
 
-      for (var i = this.state.r-1 ; i <= this.state.r*3; i++) {
+      for (var i = this.state.r-1 ; i <= this.state.nPoints; i++) {
         let prob = this.calcularProbabilidad(i);
         _data.push(Number(prob));
       } 
@@ -101,10 +119,16 @@ class BinomialNegativa1 extends Component {
             desviacion={this.state.desviacion}
           />
           <BarGraph data={gr}/>
+          <NumberSlider min={0} max={100} default={1} step={1} handleChange={this.changePuntos}/>
+          <CalcProb result={this.state.probabilidad} min={0} max={this.state.nPoints-1} range={this.state.probRange} handleChange={this.changeRange}/>
           
         </div>
       )
     }
+
+    changeRange = async function(event, value) {
+      await this.setState({ probRange: value });
+    };
 
     changeP = async function(event) {
       await this.setState({ p: Number(event.target.value) });
@@ -112,6 +136,10 @@ class BinomialNegativa1 extends Component {
 
     changeR = async function(event) {
       await this.setState({ r: Number(event.target.value) });
+    };
+
+    changePuntos = async function(event, value) {
+      await this.setState({ nPoints: Number(value) });
     };
 }
 
