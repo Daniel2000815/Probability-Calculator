@@ -2,8 +2,6 @@ import Distribution from './Distribution';
 import React, {Component} from 'react'; 
 import NumberField from '../Components/NumberField';
 import BarGraph from '../Components/BarGraph';
-import FunctionGrpah from '../Components/FunctionGraph';
-
 import {choose, factorial} from '../Libraries/MyMath';
 import CalcProb from '../Components/CalcProb';
 
@@ -19,7 +17,8 @@ const gr= {
     }
   ]
 }
-class Binomial extends Component {
+
+class Uniforme extends Component {
     constructor (props) {
       super(props);
       this.changeN = this.changeN.bind(this);
@@ -117,7 +116,7 @@ class Binomial extends Component {
           />
           <BarGraph data={gr}/>
           <CalcProb result={this.state.probabilidad} min={0} max={this.state.n} range={this.state.probRange} handleChange={this.changeRange}/>
-          <FunctionGrpah/>
+
           
         </div>
       )
@@ -136,4 +135,4 @@ class Binomial extends Component {
     };
 }
 
-export default Binomial;
+export default Uniforme;
